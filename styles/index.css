@@ -1,0 +1,35 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.navigation{
+    width: 100%;
+}
+
+.navigation a{
+    float: left;
+    text-align: center;
+
+    width: calc(100%/3);
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    background: gray;
+    transition-property: background;
+    transition-duration: 0.5s;
+
+    text-decoration: none;
+}
+
+.navigation a:hover{
+    background: red;
+}
+
+footer{
+    width: 100%;
+    background: gray;
+    text-align: center;
+    padding: 5px 0 5px 0;
+}
