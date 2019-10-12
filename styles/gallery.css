@@ -1,0 +1,19 @@
+.gallery{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.item{
+    padding: 5px;
+    transition: all .2s ease-in-out;
+    cursor: pointer;
+}
+
+img{
+    width: 100%;
+}
+
+.item:hover{
+    transform: scale(1.1);
+}
