@@ -1,0 +1,20 @@
+form{
+    padding: 10px;
+    border-radius: 5px;
+    background: lightgray;
+}
+
+p{
+    text-align: center;
+}
+
+form input[type="text"], textarea{
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+}
+
+form input[type="reset"], input[type="submit"]
+{
+    padding: 10px;
+}

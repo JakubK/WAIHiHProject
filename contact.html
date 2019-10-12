@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Moje Hobby</title>
+        <link rel="stylesheet" href="styles/index.css"/>
+        <link rel="stylesheet" href="styles/contact.css"/>
+    </head>
+    <body>
+        <nav class="navigation">
+            <a href="index.html">Strona główna</a>
+            <a href="gallery.html">Galeria</a>
+            <a href="contact.html">Kontakt</a>
+        </nav>
+        <header>
+            <h1>Moje Hobby - Programowanie</h1>
+        </header>
+        <p>
+            Chcesz się ze mną skontaktować? Użyj poniższego formularza.
+        </p>
+        <iframe style="display: none" width="0" height="0" name="dummyframe" id="dummyframe"></iframe>
+        <form target="dummyframe" method="POST" action="http://localhost/index.php" >
+            <input placeholder="Twoje imie i nazwisko" name="name" type="text"/><br/>
+            <input placeholder="Twój adres E-mail" name="email" type="text"/><br/>
+            <textarea name="message" placeholder="Twoja wiadomość"></textarea><br/>
+            <input type="submit" value="Wyślij formularz"/>
+            <input type="reset" value="Zresetuj formularz"/>
+        </form>
+        <footer>
+            Autor: 180125
+        </footer>
+    </body>
+</html>
