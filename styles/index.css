@@ -1,49 +1,3 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body{
-    background: #eaeaea;
-}
-
-header{
-    margin-top: 20px;
-    padding: 20px;
-    text-align: center;
-}
-
-h2{
-    text-align: center;
-}
-
-.navigation{
-     height: 60px;
-     position: fixed;
-     top: 0;
-     width: 100%;
-}
-
-.navigation a{
-    float: left;
-    text-align: center;
-
-    width: calc(100%/3);
-    padding-top: 10px;
-    padding-bottom: 10px;
-
-    background: gray;
-    transition-property: background;
-    transition-duration: 0.5s;
-
-    text-decoration: none;
-}
-
-.navigation a:hover{
-    background: red;
-}
-
 .projects_container
 {
     display: flex;
@@ -68,11 +22,4 @@ h2{
     width: 1em;
     height: 1em;
     font-size: 5em;
-}
-
-footer{
-    width: 100%;
-    background: gray;
-    text-align: center;
-    padding: 5px 0 5px 0;
 }
