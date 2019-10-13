@@ -13,10 +13,12 @@ p{
     transition: all .2s ease-in-out;
     cursor: pointer;
     width: 25%;
+    height: 100%;
 }
 
 img{
     width: 100%;
+    height: auto;
 }
 
 .item:hover{
