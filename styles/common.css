@@ -17,6 +17,7 @@ h2{
     position: fixed;
     top: 0;
     width: 100%;
+    z-index: 100;
 }
 
 .navigation a{
@@ -43,4 +44,5 @@ footer{
     background: gray;
     text-align: center;
     padding: 5px 0 5px 0;
+    z-index: 100;
 }
