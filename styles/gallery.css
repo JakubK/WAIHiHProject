@@ -1,13 +1,18 @@
 .gallery{
     display: flex;
-    justify-content: space-around;
     flex-wrap: wrap;
+    padding: 15px;
+}
+
+p{
+    text-align: center;
 }
 
 .item{
     padding: 5px;
     transition: all .2s ease-in-out;
     cursor: pointer;
+    width: 25%;
 }
 
 img{
@@ -16,4 +21,16 @@ img{
 
 .item:hover{
     transform: scale(1.1);
+}
+
+@media screen and (max-width: 800px) {
+    .item {
+      width: 50%;
+    }
+  }
+  
+@media screen and (max-width: 600px) {
+    .item {
+        width: 100%;
+    }
 }
