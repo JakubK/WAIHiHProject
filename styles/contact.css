@@ -4,6 +4,11 @@ form{
     background: lightgray;
 }
 
+#validationError{
+    color: red;
+    text-align: center;
+}
+
 p{
     text-align: center;
 }
