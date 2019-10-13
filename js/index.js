@@ -10,3 +10,12 @@ technologiesSection.innerHTML = `
     <h2>Technologie</h2>
     <p>Od zawsze interesował mnie język C# wraz z platformą .NET, jednakże niedawno zainteresowałem się również Javascriptem oraz frameworkami takimi jak Vue.js oraz React</p>`;
 beginningsSection.parentNode.insertBefore(technologiesSection,beginningsSection.nextSibling);
+
+//github
+$('.projects_container').after(`
+    <div>
+        <p>Ich kody źródłowe można znaleźć na moim
+            <a href="https://github.com/JakubK">GitHubie</a>
+        </p>
+    </div>
+`);
