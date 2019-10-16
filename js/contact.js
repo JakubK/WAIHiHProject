@@ -1,3 +1,5 @@
+// localStorage.clear();
+
 if(localStorage.getItem("formSent") == "true")
 {
   $('#validationError').text("Twoja wiadomość została wysłana.");
