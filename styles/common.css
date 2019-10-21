@@ -21,22 +21,26 @@ h2{
 }
 
 .navigation a{
-   float: left;
-   text-align: center;
+    float: left;
+    text-align: center;
 
-   width: calc(100%/3);
-   padding-top: 10px;
-   padding-bottom: 10px;
+    width: calc(100%/3);
+    padding-top: 10px;
+    padding-bottom: 10px;
 
-   background: gray;
-   transition-property: background;
-   transition-duration: 0.5s;
+    background: gray;
+    transition-property: background;
+    transition-duration: 0.5s;
 
-   text-decoration: none;
+    text-decoration: none;
 }
 
-.navigation a:hover{
-   background: red;
+.navigation a:hover {
+    background: red;
+}
+
+.navigation a.nav-active{
+    background: red;
 }
 
 footer{
