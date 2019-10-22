@@ -20,7 +20,7 @@ h2{
     z-index: 100;
 }
 
-.navigation a{
+.navigation > *{
     float: left;
     text-align: center;
 
@@ -41,6 +41,18 @@ h2{
 
 .navigation a.nav-active{
     background: red;
+}
+
+.dropdown
+{
+    list-style: none;
+    display: none;
+    flex-direction: column;
+}
+
+.dropdown-button:hover .dropdown
+{
+    display: flex;
 }
 
 footer{
