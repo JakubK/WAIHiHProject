@@ -17,6 +17,7 @@
             <th>Nazwa</th>
             <th>Źródło</th>
             <th>Opis</th>
+            <th>Data wydania</th>
             <th>Technologie</th>
         </thead>
         <tbody>
@@ -43,6 +44,12 @@
 </xsl:template>
 
 <xsl:template match="description">
+    <td>          
+        <xsl:value-of select="."/>
+    </td>
+</xsl:template>
+
+<xsl:template match="releaseDate">
     <td>          
         <xsl:value-of select="."/>
     </td>
