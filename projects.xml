@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- <?xml-stylesheet type="text/xsl" href="table.xsl"?> -->
-<!-- <?xml-stylesheet type="text/xsl" href="document.xsl"?> -->
+<?xml-stylesheet type="text/xsl" href="document.xsl"?>
 <projects>
     <project>
         <name>2048</name>
@@ -12,8 +12,8 @@
         </description>
         <releaseDate>2019-01-01</releaseDate>
         <images>
-            <image source="img/src/2048_2.jpg"/>
-            <image source="img/src/2048_2.jpg"/>
+            <image source="img/2048_1.jpg"/>
+            <image source="img/2048_2.jpg"/>
         </images>
         <technologies>
             <technology>
@@ -32,7 +32,6 @@
             Projekt aplikacji webowej ligii sportowej pozwalającej przeglądać graczy, wydarzenia i konkursy z nią związanych oraz wyniki graczy.
             Aplikacja udostępnia również panel administracyjny do zarządzania nimi.
         </description>
-        <releaseDate>2017-08-05</releaseDate>
         <technologies>
             <technology>
                 <name>C#</name>
@@ -55,7 +54,7 @@
         </description>
         <releaseDate>2019-08-07</releaseDate>
         <images>
-            <image source="img/src/Lincon_1.png"/>
+            <image source="img/Lincon_1.png"/>
         </images>
         <technologies>
             <technology>
