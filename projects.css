@@ -1,0 +1,10 @@
+.images
+{
+  display: flex;
+}
+
+img{
+  max-height: 600px;
+  padding: 10px;
+  cursor: pointer;
+}
