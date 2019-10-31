@@ -15,33 +15,27 @@
     <table>
         <thead>
             <th>Nazwa</th>
-            <th>Źródło</th>
             <th>Opis</th>
             <th>Data wydania</th>
             <th>Technologie</th>
         </thead>
         <tbody>
             <xsl:for-each select="project">
-                <xsl:sort select="name"/>
+                <xsl:sort select="title"/>
                 <tr>
-                    <xsl:apply-templates select="."/>            
+                    <xsl:apply-templates select="."/>
                 </tr>
             </xsl:for-each>
         </tbody>
     </table>
 </xsl:template>
 
-<xsl:template match="name">
+<xsl:template match="title">
     <td>          
         <xsl:value-of select="."/>
     </td>
 </xsl:template>
 
-<xsl:template match="source">
-    <td>          
-        <xsl:value-of select="."/>
-    </td>
-</xsl:template>
 
 <xsl:template match="description">
     <td>          
@@ -56,9 +50,14 @@
 </xsl:template>
 
 <xsl:template match="technologies">
+    <xsl:if test="not(../releaseDate)">
+        <td>
+            -
+        </td>
+    </xsl:if>
     <td>          
         <xsl:for-each select="technology">
-            <xsl:value-of select=" . "/>,  
+            <xsl:value-of select="name"/>,  
         </xsl:for-each>
     </td>
 </xsl:template>
