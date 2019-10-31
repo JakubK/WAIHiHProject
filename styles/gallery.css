@@ -47,6 +47,7 @@ img{
 .close-btn
 {
     position: absolute;
+    color: white;
     top: 20px;
     right: 20px;
     font-size: 40px;
