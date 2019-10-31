@@ -2,10 +2,20 @@ body{
     background: #eaeaea;
 }
 
+p{
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
 header{
     margin-top: 20px;
     padding: 20px;
     text-align: center;
+}
+
+section
+{
+    padding-top: 60px;
 }
 
 h2{
