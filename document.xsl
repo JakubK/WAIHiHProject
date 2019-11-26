@@ -8,8 +8,11 @@
                 <link rel="stylesheet" href="projects.css"/>
             </head>
             <body>
+                Pierwszym projektem w dokumencie XML jest <b><xsl:value-of select="/projects/project[1]/title"/></b><br/>
                 Ostatnim projektem w dokumencie XML jest <b><xsl:value-of select="/projects/project[last()]/title"/></b><br/>
                 Liczba projektów w dokumencie:<b><xsl:value-of select='count(/projects/project)'/></b><br/>
+                Samodzielnie wykonanych projektów: <b><xsl:value-of select="count(/projects/project[@contributors='1'])"/></b><br/>
+                
                 Wszystkie projekty są udostępniane na zasadach <b><xsl:value-of select='name(/projects/project/@openSource)'/></b><br/>
                 <hr/>
                 Ostatnia data modyfikacji dokumentu transformacji:
