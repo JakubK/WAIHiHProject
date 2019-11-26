@@ -8,6 +8,13 @@
                 <link rel="stylesheet" href="projects.css"/>
             </head>
             <body>
+                Ostatnim projektem w dokumencie XML jest <b><xsl:value-of select="/projects/project[last()]/title"/></b><br/>
+                Liczba projektów w dokumencie:<b><xsl:value-of select='count(/projects/project)'/></b><br/>
+                Wszystkie projekty są udostępniane na zasadach <b><xsl:value-of select='name(/projects/project/@openSource)'/></b><br/>
+                <hr/>
+                Ostatnia data modyfikacji dokumentu transformacji:
+                <xsl:value-of select="concat('03-','11-','19')"/>
+                <br/>
                 <xsl:apply-templates/>     
             </body>
         </html>
@@ -75,7 +82,7 @@
     </xsl:template>
 
     <xsl:template match="technologies">
-        <h4>Technologie</h4>
+        <h4><xsl:value-of select="name()"/></h4>
         <xsl:if test="count(technology) > 3">
             <p><strong>Wykorzystałem w tym projekcie ponad 3 różne technologie:</strong></p>
         </xsl:if>
