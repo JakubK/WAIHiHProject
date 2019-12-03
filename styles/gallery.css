@@ -44,6 +44,12 @@ img{
     background: rgba(0,0,0,0.7);
 }
 
+#modal img
+{
+    width: 80%;
+    margin: auto;
+}
+
 .close-btn
 {
     position: absolute;
@@ -63,11 +69,7 @@ img{
     color: white;
 }
 
-#modal-img
-{
-    width: 80%;
-    margin: auto;
-}
+
 
 @media screen and (max-width: 800px) {
     .item {
