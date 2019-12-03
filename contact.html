@@ -35,18 +35,18 @@
         <form target="dummyframe" method="POST" action="http://localhost/index.php" >
             <input placeholder="Twoje imie i nazwisko" name="name" type="text"/><br/>
             <input placeholder="Twój adres E-mail" name="email" type="text"/><br/>
-            <input type="radio" value="female" name="gender"/>
+            <input type="radio" id="female" value="female" name="gender"/>
             <label for="female">Kobieta</label>
-            <input type="radio" value="male" name="gender"/>
+            <input type="radio" id="male" value="male" name="gender"/>
             <label for="male">Mężczyzna</label>
             <textarea name="message" placeholder="Twoja wiadomość"></textarea><br/>
-            <select name="category">
+            <select id="category" name="category">
                 <option>Propozycja współpracy</option>
                 <option>Pytanie o projekt</option>
                 <option>Inne</option>
             </select>
             <label for="category">Kategoria formularza</label><br/>
-            <input type="checkbox" name="newsletter"/>
+            <input id="newsletter" type="checkbox" name="newsletter"/>
             <label for="newsletter">Czy chcesz zapisać się na newsletter z informacjami o moich projektach?</label>
             <input type="submit" value="Wyślij formularz"/>
             <input type="reset" value="Zresetuj formularz"/>
