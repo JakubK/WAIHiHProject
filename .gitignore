@@ -1,0 +1,4 @@
+vendor/**
+src/web/static/images/**
+src/web/static/watermarks/**
+src/web/static/thumbnails/**

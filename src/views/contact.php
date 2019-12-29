@@ -4,25 +4,14 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Moje Hobby</title>
-        <link rel="stylesheet" href="styles/jquery-ui.min.css"/>
-        <link rel="stylesheet" href="styles/jquery-ui.theme.min.css"/>
-        <link rel="stylesheet" href="styles/reset.css"/>
-        <link rel="stylesheet" href="styles/common.css"/>
-        <link rel="stylesheet" href="styles/contact.css"/>
+        <link rel="stylesheet" href="static/css/jquery-ui.min.css"/>
+        <link rel="stylesheet" href="static/css/jquery-ui.theme.min.css"/>
+        <link rel="stylesheet" href="static/css/reset.css"/>
+        <link rel="stylesheet" href="static/css/common.css"/>
+        <link rel="stylesheet" href="static/css/contact.css"/>
     </head>
     <body>
-        <nav class="navigation">
-            <div class="dropdown-button">
-                Strona główna
-                <ul class="dropdown">
-                    <li class="dropdown--item"><a href="index.html#beginnings">Początki</a></li>
-                    <li class="dropdown--item"><a href="index.html#projects">Wybrane projekty</a></li>
-                    <li class="dropdown--item"><a href="index.html#contact">Kontakt</a></li>
-                </ul>
-            </div>
-            <a href="gallery.html">Galeria</a>
-            <a class="nav-active" href="contact.html">Kontakt</a>
-        </nav>
+        <?php include 'partial/navbar.php' ?>        
         <header>
             <h1>Moje Hobby - Programowanie</h1>
         </header>
@@ -35,18 +24,18 @@
         <form target="dummyframe" method="POST" action="http://localhost/index.php" >
             <input placeholder="Twoje imie i nazwisko" name="name" type="text"/><br/>
             <input placeholder="Twój adres E-mail" name="email" type="text"/><br/>
-            <input type="radio" id="female" value="female" name="gender"/>
+            <input type="radio" value="female" name="gender"/>
             <label for="female">Kobieta</label>
-            <input type="radio" id="male" value="male" name="gender"/>
+            <input type="radio" value="male" name="gender"/>
             <label for="male">Mężczyzna</label>
             <textarea name="message" placeholder="Twoja wiadomość"></textarea><br/>
-            <select id="category" name="category">
+            <select name="category">
                 <option>Propozycja współpracy</option>
                 <option>Pytanie o projekt</option>
                 <option>Inne</option>
             </select>
             <label for="category">Kategoria formularza</label><br/>
-            <input id="newsletter" type="checkbox" name="newsletter"/>
+            <input type="checkbox" name="newsletter"/>
             <label for="newsletter">Czy chcesz zapisać się na newsletter z informacjami o moich projektach?</label>
             <input type="submit" value="Wyślij formularz"/>
             <input type="reset" value="Zresetuj formularz"/>
@@ -57,8 +46,8 @@
         <footer>
             Autor: 180125
         </footer>
-        <script src="js/jquery-3.4.1.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>
-        <script src="js/contact.js"></script>
+        <script src="static/js/jquery-3.4.1.min.js"></script>
+        <script src="static/js/jquery-ui.min.js"></script>
+        <script src="static/js/contact.js"></script>
     </body>
 </html>

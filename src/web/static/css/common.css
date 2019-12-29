@@ -60,16 +60,6 @@ h2{
     flex-direction: column;
 }
 
-.dropdown-button
-{
-    cursor: pointer;
-}
-
-.dropdown-button:hover, .dropdown-button.nav-active 
-{
-    background: red;
-}
-
 .dropdown-button:hover .dropdown
 {
     display: flex;

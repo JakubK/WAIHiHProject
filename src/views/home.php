@@ -4,23 +4,12 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Moje Hobby</title>
-        <link rel="stylesheet" href="styles/reset.css"/>
-        <link rel="stylesheet" href="styles/common.css"/>
-        <link rel="stylesheet" href="styles/index.css"/>
+        <link rel="stylesheet" href="static/css/reset.css"/>
+        <link rel="stylesheet" href="static/css/common.css"/>
+        <link rel="stylesheet" href="static/css/index.css"/>
     </head>
     <body>
-        <nav class="navigation">
-            <div class="nav-active dropdown-button">
-                Strona główna
-                <ul class="dropdown">
-                    <li class="dropdown--item"><a href="#beginnings">Początki</a></li>
-                    <li class="dropdown--item"><a href="#projects">Wybrane projekty</a></li>
-                    <li class="dropdown--item"><a href="#contact">Kontakt</a></li>
-                </ul>
-            </div>
-            <a href="gallery.html">Galeria</a>
-            <a href="contact.html">Kontakt</a>
-        </nav>
+        <?php include 'partial/navbar.php' ?>
         <header>
             <h1>Moje Hobby - Programowanie</h1>
         </header>
@@ -39,17 +28,17 @@
             <div class="projects_container">
                 <div class="project">
                     <h4>LinCon</h4>
-                    <img alt="project-image" src="img/Lincon_1.png"/>
+                    <img alt="project-image" src="static/img/Lincon_1.png"/>
                     <p>Aplikacja do zarządzania linkami</p>
                 </div>
                 <div class="project">
                     <h4>Liga sportowa</h4>
-                    <img alt="project-image" src="img/Lincon_2.png"/>
+                    <img alt="project-image" src="static/img/Lincon_2.png"/>
                     <p>Aplikacja Ligii sportowej</p>
                 </div>
                 <div class="project">
                     <h4>2048</h4>
-                    <img alt="project-image" src="img/2048_1.jpg"/>
+                    <img alt="project-image" src="static/img/2048_1.jpg"/>
                     <p>Gra logiczna 2048</p>
                 </div>
             </div>
@@ -100,7 +89,7 @@
             Autor: 180125<br/>
             <a href="#">Wróć na początek strony</a>
         </footer>
-        <script src="js/jquery-3.4.1.min.js"></script>
-        <script src="js/index.js"></script>
+        <script src="static/js/jquery-3.4.1.min.js"></script>
+        <script src="static/js/index.js"></script>
     </body>
 </html>
