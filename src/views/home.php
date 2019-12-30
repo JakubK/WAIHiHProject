@@ -85,10 +85,7 @@
             </svg>
             <p>Możesz się ze mną skontaktować poprzez formularz kontaktowy który znajdziesz <a href="contact.html">tutaj</a></p>
         </section>
-        <footer>
-            Autor: 180125<br/>
-            <a href="#">Wróć na początek strony</a>
-        </footer>
+        <?php include 'partial/footer.php' ?>
         <script src="static/js/jquery-3.4.1.min.js"></script>
         <script src="static/js/index.js"></script>
     </body>

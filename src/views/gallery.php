@@ -56,9 +56,7 @@
             <span class="close-btn">&times;</span>
             <img src="" id="modal-img"/>
         </div>
-        <footer>
-            Autor: 180125
-        </footer>
+        <?php include 'partial/footer.php' ?>
         <script src="static/js/gallery.js"></script>
     </body>
 </html>

@@ -43,9 +43,7 @@
         <div id="dialog" title="Formularz został wysłany">
             <p>Wszystkie dane zostały podane. Formularz został wysłany</p>
         </div>
-        <footer>
-            Autor: 180125
-        </footer>
+        <?php include 'partial/footer.php' ?>
         <script src="static/js/jquery-3.4.1.min.js"></script>
         <script src="static/js/jquery-ui.min.js"></script>
         <script src="static/js/contact.js"></script>
