@@ -124,39 +124,62 @@ function save_image_data($thumbnailPath,$watermarkPath, $author,$title)
     ]);
 }
 
+function processRegisterForm()
 {
-    include 'paths.php';
+    $login = $_POST['login'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $passwordRepeat = $_POST['passwordRepeat'];
 
-    $pathThumbnails = $paths['thumbnails'];
-    $allThumbnails = glob($pathThumbnails.'*.{jpg,JPG,jpeg,JPEG,png,PNG}',GLOB_BRACE);
-    $imagesCount = count($allThumbnails);
-    $maxPage = $imagesCount % $itemsPerPage === 0 ? intdiv($imagesCount,$itemsPerPage) : intdiv($imagesCount,$itemsPerPage) + 1;
+    if(empty($login) || empty($email) || empty($password) || empty($passwordRepeat)) //not all fields were filled
+        return 'Nie wszystkie pola zostały wypełnione';
 
-    $pathWatermarked = $paths['watermarks'];
-    $allWatermarked = glob($pathWatermarked.'*.{jpg,JPG,jpeg,JPEG,png,PNG}',GLOB_BRACE);
+    //check if email exists in the Database
+    $db = get_db();
+    $emails = $db->users->find([
+        "email" => $email
+    ])->toArray();
 
-    $i = 0;
-    $allImages = array_map(NULL,$allWatermarked,$allThumbnails);
-    usort($allImages, function($a,$b)
+    $logins = $db->users->find([
+        "login" => $login
+    ])->toArray();
+
+    if(count($emails) !== 0) //email taken
+        return 'Podany adres email jest już zajęty';
+
+    if(count($logins) !== 0) //login taken
+        return 'Podany login jest już zajęty';
+
+    if($password === $passwordRepeat) //create user
     {
-        return filemtime($a[0]) - filemtime($b[0]);
-    });
-    
-    array_splice($allImages,0,$skip);
+        $db->users->insertOne((object)[
+            "email" => $email,
+            "login" => $login,
+            "password" => hash("sha256",$password)
+        ]);
 
-    foreach($allImages as $image)
-    {
-        $images[] = (object)[
-            "watermark" => $image[0],
-            "thumbnail" => $image[1]
-        ];
-        $i++;
-        if($i === $itemsPerPage)
-            break;
-    }
-
-    return (object)[
-        "maxPage" => $maxPage,
-        "images" => $images
-    ];
+        return "Udało się stworzyć użytkownika";
+    } 
 }
+
+function processLoginForm(&$userId)
+{
+    $login = $_POST['login'];
+    $password = $_POST['password'];
+    if(empty($login) || empty($password)) //not all fields were filled
+        return 'Nie wszystkie pola zostały wypełnione';
+
+    $db = get_db();
+    $user = $db->users->find([
+        "login" => $login,
+        "password" => hash("sha256", $password)
+    ])->toArray();
+
+    if(count($user) !== 0)
+    {
+        $userId = $user[0]->_id;
+        return "Zalogowano pomyślnie"; 
+    }
+}
+
+?>
