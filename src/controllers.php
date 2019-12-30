@@ -124,15 +124,56 @@ function gallery(&$model)
         $itemsPerPage = 5;
         $skip = ($page-1) * $itemsPerPage;
 
-        $result = fetch_images_data($page,$skip,$itemsPerPage);
-
+        $result = get_image_data($skip,$itemsPerPage,$maxPage);
         $model['page'] = $page;
-        $model['images'] = $result->images ?? [];
-        $model['maxPage'] = $result->maxPage;
+        $model['images'] = $result ?? [];
+        $model['maxPage'] = $maxPage;
+
         $model['uploadInfo'] = $_SESSION['uploadInfo'];
+        $_SESSION['uploadInfo'] = '';
 
         return 'gallery';
     }
+}
+
+function register_user(&$model)
+{
+    if($_SERVER['REQUEST_METHOD'] === 'POST')
+    {
+        $register_result = processRegisterForm();
+        $_SESSION['registerResult'] = $register_result;
+        return 'redirect: '.$_SERVER['HTTP_REFERER'];
+    }
+    else 
+    {
+        $model['registerResult'] = $_SESSION['registerResult'];
+        $_SESSION['registerResult'] = '';
+        return 'register';
+    }
+}
+
+function login_user(&$model)
+{
+    if($_SERVER['REQUEST_METHOD'] === 'POST')
+    {
+        $userId = NULL;
+        $loginResult = processLoginForm($userId);
+        $_SESSION['user'] = $userId;
+        $_SESSION['loginResult'] = $loginResult;
+        return 'redirect: '.$_SERVER['HTTP_REFERER'];
+    }
+    else 
+    {
+        $model['loginResult'] = $_SESSION['loginResult'];
+        $_SESSION['loginResult'] = '';
+        return 'login';
+    }
+}
+
+function logout()
+{
+    $_SESSION['user'] = NULL;
+    return "login";
 }
 
 function home(&$model)
