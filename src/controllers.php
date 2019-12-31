@@ -143,6 +143,29 @@ function gallery(&$model)
     }
 }
 
+function marked_gallery(&$model)
+{
+    if($_SERVER['REQUEST_METHOD'] === 'POST')
+    {
+        markImages(false);
+        return 'redirect:' . $_SERVER['HTTP_REFERER'];
+    }
+    else
+    {
+        $page = isset($_GET['page']) ? $_GET['page'] : 1;
+        $itemsPerPage = 5;
+        $skip = ($page-1) * $itemsPerPage;
+
+        $result = get_marked_image_data($skip,$itemsPerPage,$maxPage);
+
+        $model['page'] = $page;
+        $model['images'] = $result ?? [];
+        $model['maxPage'] = $maxPage;
+
+        return "marked_gallery";
+    }
+}
+
 function register_user(&$model)
 {
     if($_SERVER['REQUEST_METHOD'] === 'POST')
