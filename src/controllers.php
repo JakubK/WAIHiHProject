@@ -135,6 +135,7 @@ function gallery(&$model)
         $model['page'] = $page;
         $model['images'] = $result ?? [];
         $model['maxPage'] = $maxPage;
+        $model['author'] = isset($_SESSION['user']) ? get_user_login() : '';
 
         $model['uploadInfo'] = $_SESSION['uploadInfo'];
         $_SESSION['uploadInfo'] = '';

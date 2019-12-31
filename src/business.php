@@ -231,5 +231,13 @@ function markImages($markValue)
     }
 }
 
+function get_user_login()
+{
+    $db = get_db();
+    $user = $db->users->find([
+        "_id" => $_SESSION['user']
+    ])->toArray();
 
+    return $user[0]['login'];
+}
 ?>
