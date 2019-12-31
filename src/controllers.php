@@ -114,8 +114,14 @@ function gallery(&$model)
 {
     if ($_SERVER['REQUEST_METHOD'] === 'POST')
     {
-        $upload_result = upload_image();
-        $_SESSION['uploadInfo'] = $upload_result;
+        if($_POST['type'] === 'upload')
+        {
+            $upload_result = upload_image();
+            $_SESSION['uploadInfo'] = $upload_result;
+        }
+        else
+            markImages(true);
+
         return 'redirect:' . $_SERVER['HTTP_REFERER'];
     }
     else
@@ -125,6 +131,7 @@ function gallery(&$model)
         $skip = ($page-1) * $itemsPerPage;
 
         $result = get_image_data($skip,$itemsPerPage,$maxPage);
+
         $model['page'] = $page;
         $model['images'] = $result ?? [];
         $model['maxPage'] = $maxPage;

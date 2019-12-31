@@ -30,21 +30,28 @@
         <p>
             <?=$uploadInfo ?? '' ?>
         </p>
-        <div class="gallery">
             <?php if($images): ?>
-                <?php foreach ($images as $image): ?>
-                    <div class="item">
-                        <div class="item-description">
-                            <?=$image->author?>
-                            <?=$image->title?>
-                        </div>
-                        <a href="<?=$image->watermark?>">
-                            <img alt="gallery-image" src="<?=$image->thumbnail?>"/>
-                        </a>
+                <form method="POST">
+                    <input type="hidden" name="type" value="markImages"/>
+                    <div class="gallery">
+                        <?php foreach ($images as $image): ?>
+                            <div class="item-description">
+                                <input name="check[]" type="checkbox" 
+                                <?php if(in_array($image->_id,array_values($_SESSION['check']))): echo 'checked';endif?>
+                                value="<?=$image->_id?>"/>
+                                <?=$image->author?>
+                                <?=$image->title?>
+                            </div>
+                            <div class="item">
+                                <a href="<?=$image->watermark?>">
+                                    <img alt="gallery-image" src="<?=$image->thumbnail?>"/>
+                                </a>
+                            </div>
+                        <?php endforeach?>
                     </div>
-                <?php endforeach?>
+                    <input type="submit" value="Zapamiętaj wybrane"/>
+                </form>
             <?php endif?>
-        </div>
         <div class="gallery-nav">
             <?php if($maxPage > 0): ?>
                 <p>
