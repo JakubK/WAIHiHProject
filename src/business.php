@@ -107,7 +107,13 @@ function get_image_data($skip,$take,&$maxPage)
     $db = get_db();
     $count = $db->images->count();
     $maxPage = $count % $take === 0 ? intdiv($count,$take) : intdiv($count,$take) + 1;
-    $result = $db->images->find([],$opts)->toArray();
+
+    $query = ['$or' => [
+        ['author' => get_user_login()],
+        ['private' => NULL]
+    ]];
+
+    $result = $db->images->find($query,$opts)->toArray();
 
     return $result;
 }
@@ -125,9 +131,8 @@ function get_marked_image_data($skip,$take,&$maxPage)
     for($i = 0;$i < count($checks);$i++)
         $checks[$i] = new ObjectId($checks[$i]);
 
-    $query = ['_id' => ['$in' => $checks]];
-
     $count = $db->images->count();
+    $query = ['_id' => ['$in' => $checks]];
 
     $maxPage = $count % $take === 0 ? intdiv($count,$take) : intdiv($count,$take) + 1;
     $result = $db->images->find($query,$opts)->toArray();
