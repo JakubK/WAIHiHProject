@@ -105,10 +105,32 @@ function get_image_data($skip,$take,&$maxPage)
     ];
 
     $db = get_db();
-    $result = $db->images->find()->toArray();
-    $count = count($result);
+    $count = $db->images->count();
     $maxPage = $count % $take === 0 ? intdiv($count,$take) : intdiv($count,$take) + 1;
     $result = $db->images->find([],$opts)->toArray();
+
+    return $result;
+}
+
+function get_marked_image_data($skip,$take,&$maxPage)
+{
+    $opts = [
+        'skip' => $skip,
+        'limit' => $take
+    ];
+
+    $db = get_db();
+    $checks = $_SESSION['check'];
+
+    for($i = 0;$i < count($checks);$i++)
+        $checks[$i] = new ObjectId($checks[$i]);
+
+    $query = ['_id' => ['$in' => $checks]];
+
+    $count = $db->images->count();
+
+    $maxPage = $count % $take === 0 ? intdiv($count,$take) : intdiv($count,$take) + 1;
+    $result = $db->images->find($query,$opts)->toArray();
 
     return $result;
 }
@@ -181,5 +203,29 @@ function processLoginForm(&$userId)
         return "Zalogowano pomyślnie"; 
     }
 }
+
+function markImages($markValue)
+{
+    if(!empty($_POST['check']))
+    {
+        $checks = $_POST['check'];
+        if($markValue === true)
+        {
+            //add item to array if it does not exist here
+            foreach($checks as $check)
+            {
+                if(!in_array($check,$_SESSION['check']))
+                {
+                    array_push($_SESSION['check'],$check);
+                }
+            }
+        }
+        else //remove selected items
+        {
+            $_SESSION['check'] = array_diff($_SESSION['check'],$checks);
+        }
+    }
+}
+
 
 ?>
