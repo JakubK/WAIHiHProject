@@ -144,6 +144,23 @@ function gallery(&$model)
     }
 }
 
+function search(&$model)
+{
+    if(isset($_GET['phrase']))
+    {
+        //perform logic on fetching data
+        $phrase = $_GET['phrase'];
+        $result = search_images($phrase);
+        $model['images'] = $result;
+
+        return 'partial/search_result';
+    }
+    else
+    {
+        return 'search';
+    }
+}
+
 function marked_gallery(&$model)
 {
     if($_SERVER['REQUEST_METHOD'] === 'POST')

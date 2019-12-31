@@ -118,6 +118,22 @@ function get_image_data($skip,$take,&$maxPage)
     return $result;
 }
 
+function search_images($phrase)
+{
+    $db = get_db();
+    $query = ['$and' => [
+        [
+            'private' => NULL
+        ],
+        [
+            'title' => ['$regex' => ".*".$phrase.".*"]
+        ]
+    ]];
+
+    $result = $db->images->find($query)->toArray();
+    return $result;
+}
+
 function get_marked_image_data($skip,$take,&$maxPage)
 {
     $opts = [
