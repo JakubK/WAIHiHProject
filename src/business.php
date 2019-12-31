@@ -138,12 +138,16 @@ function get_marked_image_data($skip,$take,&$maxPage)
 function save_image_data($thumbnailPath,$watermarkPath, $author,$title)
 {
     $db = get_db();
-    $db->images->insertOne((object)[
+    $imageToInsert = [
         "author" => $author,
         "title" => $title,
         "thumbnail" => $thumbnailPath,
         "watermark" => $watermarkPath
-    ]);
+    ];
+    if($_POST['access'] === 'private')
+        $imageToInsert["private"] = true;
+
+    $db->images->insertOne($imageToInsert);
 }
 
 function processRegisterForm()
