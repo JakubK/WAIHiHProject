@@ -10,6 +10,7 @@ $routing = [
     '/cart/clear' => 'clear_cart',
     '/cart/add' => 'add_to_cart',
     '/register' => 'register_user',
+    '/marked' => 'marked_gallery',
     '/logout' => 'logout',
     '/login' => 'login_user',
     '/gallery' => 'gallery',

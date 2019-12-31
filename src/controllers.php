@@ -190,6 +190,7 @@ function login_user(&$model)
         $loginResult = processLoginForm($userId);
         $_SESSION['user'] = $userId;
         $_SESSION['loginResult'] = $loginResult;
+
         return 'redirect: '.$_SERVER['HTTP_REFERER'];
     }
     else 
