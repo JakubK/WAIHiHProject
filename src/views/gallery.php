@@ -23,35 +23,40 @@
             <label for="#watermark">Tekst znaku wodnego</label>
             <input id="watermark" name="watermark" type="text"/><br/>
 
-            <input name="author" placeholder="Autor" type="text"/>
+            <input name="author" value="<?=$author?>" placeholder="Autor" type="text"/>
             <input name="title" placeholder="Tytuł" type="text"/>
+            <?php if(isset($_SESSION['user'])): ?>
+                <input type="radio" name="access" value="private"/> Prywatne<br/>
+                <input type="radio" name="access" value="public"/> Publiczne<br/>
+            <?php endif?>
             <input type="submit"/>
         </form>
         <p>
             <?=$uploadInfo ?? '' ?>
         </p>
-            <?php if($images): ?>
-                <form method="POST">
-                    <input type="hidden" name="type" value="markImages"/>
-                    <div class="gallery">
-                        <?php foreach ($images as $image): ?>
-                            <div class="item-description">
-                                <input name="check[]" type="checkbox" 
-                                <?php if(in_array($image->_id,array_values($_SESSION['check']))): echo 'checked';endif?>
-                                value="<?=$image->_id?>"/>
-                                <?=$image->author?>
-                                <?=$image->title?>
-                            </div>
-                            <div class="item">
-                                <a href="<?=$image->watermark?>">
-                                    <img alt="gallery-image" src="<?=$image->thumbnail?>"/>
-                                </a>
-                            </div>
-                        <?php endforeach?>
-                    </div>
-                    <input type="submit" value="Zapamiętaj wybrane"/>
-                </form>
-            <?php endif?>
+        <?php if($images): ?>
+            <form method="POST">
+                <input type="hidden" name="type" value="markImages"/>
+                <div class="gallery">
+                    <?php foreach ($images as $image): ?>
+                        <div class="item-description">
+                            <input name="check[]" type="checkbox" 
+                            <?php if(in_array($image->_id,array_values($_SESSION['check']))): echo 'checked';endif?>
+                            value="<?=$image->_id?>"/>
+                            <?=$image->author?>
+                            <?=$image->title?>
+                            <?php if(isset($image->private)): echo "To zdjęcie jest prywatne"; endif?>
+                        </div>
+                        <div class="item">
+                            <a href="<?=$image->watermark?>">
+                                <img alt="gallery-image" src="<?=$image->thumbnail?>"/>
+                            </a>
+                        </div>
+                    <?php endforeach?>
+                </div>
+                <input type="submit" value="Zapamiętaj wybrane"/>
+            </form>
+        <?php endif?>
         <div class="gallery-nav">
             <?php if($maxPage > 0): ?>
                 <p>
