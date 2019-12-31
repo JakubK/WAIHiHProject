@@ -14,7 +14,8 @@
             <h1>Moje Hobby - Programowanie</h1>
         </header>
         <p>
-            Poniżej znajdują się zdjęcia moich projektów
+            Poniżej znajdują się zdjęcia moich projektów.
+            Jeśli chcesz możesz skorzystać z <a href="/search">Wyszukiwarki</a>
         </p>
         <form class="image-upload" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="type" value="upload"/>
