@@ -8,5 +8,7 @@
       lub
       <a href="/register">Stwórz konto</a>
     </span>
-  <?php endif?>
+  <?php endif?>|
+  <a href="/marked">Zobacz zapamiętane zdjęcia</a>
+
 </footer>
