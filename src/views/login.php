@@ -10,7 +10,8 @@
     </head>
     <body>
         <?php include 'partial/navbar.php' ?>
-        <div class="register_form">
+        <?php if(!isset($_SESSION['user']) || $_SESSION['user'] === NULL): ?>
+        <div class="auth_form">
             <?=$loginResult ?? ''?>
             <p>Logowanie</p>
             <form method="POST">
@@ -21,6 +22,11 @@
                 <input type="submit"/>
             </form>
         </div>
+        <?php else:?>
+            <div class="auth_form">
+                <p>Zalogowano pomyślnie</p>
+            </div>
+        <?php endif?>
         <?php include 'partial/footer.php' ?>
     </body>
 </html>

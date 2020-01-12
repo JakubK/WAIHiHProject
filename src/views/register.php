@@ -10,7 +10,7 @@
     </head>
     <body>
         <?php include 'partial/navbar.php' ?>
-        <div class="register_form">
+        <div class="auth_form">
             <?=$registerResult ?? ''?>
             <p>Formularz rejestracji użytkownika</p>
             <form method="POST">

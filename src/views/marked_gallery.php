@@ -18,17 +18,17 @@
             Poniżej znajdują się zapamiętane zdjęcia
         </p>
         <?php if($images): ?>
-            <form method="POST">
+            <form style="text-align:center;" method="POST">
                 <input type="hidden" name="type" value="markImages"/>
                 <div class="gallery">
                     <?php foreach ($images as $image): ?>
+                    <div class="item">
                         <div class="item-description">
                             <input name="check[]" type="checkbox" 
                             value="<?=$image->_id?>"/>
                             <?=$image->author?>
                             <?=$image->title?>
                         </div>
-                        <div class="item">
                             <a href="<?=$image->watermark?>">
                                 <img alt="gallery-image" src="<?=$image->thumbnail?>"/>
                             </a>
@@ -63,6 +63,6 @@
             <img src="" id="modal-img"/>
         </div>
         <?php include 'partial/footer.php' ?>
-        <script src="static/js/gallery.js"></script>
+        <!-- <script src="static/js/gallery.js"></script> -->
     </body>
 </html>

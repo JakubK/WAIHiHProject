@@ -16,44 +16,7 @@ function get_db()
     return $db;
 }
 
-function get_products()
-{
-    $db = get_db();
-    return $db->products->find()->toArray();
-}
-
-function get_products_by_category($cat)
-{
-    $db = get_db();
-    $products = $db->products->find(['cat' => $cat]);
-    return $products;
-}
-
-function get_product($id)
-{
-    $db = get_db();
-    return $db->products->findOne(['_id' => new ObjectID($id)]);
-}
-
-function save_product($id, $product)
-{
-    $db = get_db();
-
-    if ($id == null) {
-        $db->products->insertOne($product);
-    } else {
-        $db->products->replaceOne(['_id' => new ObjectID($id)], $product);
-    }
-    return true;
-}
-
-function delete_product($id)
-{
-    $db = get_db();
-    $db->products->deleteOne(['_id' => new ObjectID($id)]);
-}
-
-function upload_image()
+function upload_image($file,$imageData)
 {
     include_once "validate.php";
 
@@ -62,16 +25,17 @@ function upload_image()
         return $validate_result;
     
     $finfo = finfo_open(FILEINFO_MIME_TYPE);
-    $file_name = $_FILES['file']['tmp_name'];
+
+    $file_name = $file['tmp_name'];
+
     $mime_type = finfo_file($finfo,$file_name);
 
-    if(($mime_type === 'image/jpeg' || $mime_type === 'image/png') && $_FILES['file']['type'] == $mime_type) 
+    if(($mime_type === 'image/jpeg' || $mime_type === 'image/png') && $file['type'] == $mime_type) 
     {
         include 'paths.php';
 
         $upload_dir = $paths['images'];
-        $file = $_FILES['file'];
-        $temp = explode(".", $_FILES["file"]["name"]);
+        $temp = explode(".", $file["name"]);
         $file_name = round(microtime(true)) . '.' . end($temp);
         $target = $upload_dir . $file_name;
         $tmp_path = $file['tmp_name'];
@@ -82,19 +46,35 @@ function upload_image()
             //thumbnail
             generate_thumbnail($target,$mime_type, $paths['thumbnails'].$file_name);            
             // //watermark
-            generate_watermark($target,$mime_type, $paths['watermarks'].$file_name);
+            generate_watermark($target,$mime_type, $paths['watermarks'].$file_name,$imageData->watermark);
 
             //Insert data to DB
             save_image_data($paths['thumbnails'].$file_name,
                 $paths['watermarks'].$file_name,
-                $_POST['author'],
-                $_POST['title']);
+                $imageData->author,
+                $imageData->title,
+                $imageData->access ?? NULL);
 
             return 'Udało się przesłać plik';
         }
     }
     else
         return "Niepoprawny format pliku. Wspierane formaty to PNG oraz JPEG";
+}
+
+function save_image_data($thumbnailPath,$watermarkPath, $author,$title,$access)
+{
+    $db = get_db();
+    $imageToInsert = [
+        "author" => $author,
+        "title" => $title,
+        "thumbnail" => $thumbnailPath,
+        "watermark" => $watermarkPath
+    ];
+    if(isset($access) && $access === 'private')
+        $imageToInsert["private"] = true;
+
+    $db->images->insertOne($imageToInsert);
 }
 
 function get_image_data($skip,$take,&$maxPage)
@@ -134,7 +114,7 @@ function search_images($phrase)
     return $result;
 }
 
-function get_marked_image_data($skip,$take,&$maxPage)
+function get_marked_image_data($checks, $skip,$take,&$maxPage)
 {
     $opts = [
         'skip' => $skip,
@@ -142,13 +122,12 @@ function get_marked_image_data($skip,$take,&$maxPage)
     ];
 
     $db = get_db();
-    $checks = $_SESSION['check'];
 
     for($i = 0;$i < count($checks);$i++)
         $checks[$i] = new ObjectId($checks[$i]);
 
-    $count = $db->images->count();
     $query = ['_id' => ['$in' => $checks]];
+    $count = $db->images->count($query);
 
     $maxPage = $count % $take === 0 ? intdiv($count,$take) : intdiv($count,$take) + 1;
     $result = $db->images->find($query,$opts)->toArray();
@@ -156,31 +135,14 @@ function get_marked_image_data($skip,$take,&$maxPage)
     return $result;
 }
 
-function save_image_data($thumbnailPath,$watermarkPath, $author,$title)
+function processRegisterForm($login,$email,$password,$passwordRepeat)
 {
-    $db = get_db();
-    $imageToInsert = [
-        "author" => $author,
-        "title" => $title,
-        "thumbnail" => $thumbnailPath,
-        "watermark" => $watermarkPath
-    ];
-    if($_POST['access'] === 'private')
-        $imageToInsert["private"] = true;
-
-    $db->images->insertOne($imageToInsert);
-}
-
-function processRegisterForm()
-{
-    $login = $_POST['login'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $passwordRepeat = $_POST['passwordRepeat'];
-
     if(empty($login) || empty($email) || empty($password) || empty($passwordRepeat)) //not all fields were filled
         return 'Nie wszystkie pola zostały wypełnione';
 
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) 
+        return 'Podany adres email nie jest poprawny';
+    
     //check if email exists in the Database
     $db = get_db();
     $emails = $db->users->find([
@@ -206,13 +168,15 @@ function processRegisterForm()
         ]);
 
         return "Udało się stworzyć użytkownika";
-    } 
+    }
+    else 
+    {
+        return "Podane hasła nie są sobie równe";
+    }
 }
 
-function processLoginForm(&$userId)
+function processLoginForm($login,$password, &$userId)
 {
-    $login = $_POST['login'];
-    $password = $_POST['password'];
     if(empty($login) || empty($password)) //not all fields were filled
         return 'Nie wszystkie pola zostały wypełnione';
 
@@ -227,22 +191,32 @@ function processLoginForm(&$userId)
         $userId = $user[0]->_id;
         return "Zalogowano pomyślnie"; 
     }
+    else 
+    {
+        return "Niepoprawne dane logowania";
+    }
 }
 
-function markImages($markValue)
+function markImages($checks,$markValue)
 {
-    if(!empty($_POST['check']))
+    if(!empty($checks))
     {
-        $checks = $_POST['check'];
         if($markValue === true)
         {
             //add item to array if it does not exist here
-            foreach($checks as $check)
+            if(isset($_SESSION['check']))
             {
-                if(!in_array($check,$_SESSION['check']))
+                foreach($checks as $check)
                 {
-                    array_push($_SESSION['check'],$check);
+                    if(!in_array($check,$_SESSION['check']))
+                    {
+                        array_push($_SESSION['check'],$check);
+                    }
                 }
+            }
+            else
+            {
+                $_SESSION['check'] = $checks;
             }
         }
         else //remove selected items
@@ -255,6 +229,10 @@ function markImages($markValue)
 function get_user_login()
 {
     $db = get_db();
+    
+    if(!isset($_SESSION['user']))
+        return NULL;
+
     $user = $db->users->find([
         "_id" => $_SESSION['user']
     ])->toArray();

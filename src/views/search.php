@@ -11,7 +11,7 @@
     <body>
         <?php include 'partial/navbar.php' ?>
         <input id="ajax" class="ajax-searchbar" placeholder="Zacznij wpisywać tytuł poszukiwanego zdjęcia" type="text"/>
-        <div id="gallery" class="gallery">
+        <div id="gallery" class="gallery-ajax">
         </div>
         <?php include 'partial/footer.php' ?>
         <script>

@@ -1,17 +1,32 @@
 <?php
 require_once 'business.php';
 
+//gallery
+
 function gallery(&$model)
 {
     if ($_SERVER['REQUEST_METHOD'] === 'POST')
     {
         if($_POST['type'] === 'upload')
         {
-            $upload_result = upload_image();
+            $imageData = (object)[
+                'author' => $_POST['author'],
+                'title' => $_POST['title'],
+                'watermark' => $_POST['watermark']
+            ];
+            if(isset($_POST['access']))
+                $imageData['access'] = $_POST['access'];
+
+            $upload_result = upload_image($_FILES['file'],$imageData);
             $_SESSION['uploadInfo'] = $upload_result;
         }
         else
-            markImages(true);
+        {
+            if(isset($_POST['check']))
+            {
+                markImages($_POST['check'],true);
+            }
+        }
 
         return 'redirect:' . $_SERVER['HTTP_REFERER'];
     }
@@ -35,6 +50,34 @@ function gallery(&$model)
     }
 }
 
+//marked images
+
+function marked_gallery(&$model)
+{
+    if($_SERVER['REQUEST_METHOD'] === 'POST')
+    {
+        markImages($_POST['check'],false);
+        return 'redirect:' . $_SERVER['HTTP_REFERER'];
+    }
+    else
+    {
+            $page = isset($_GET['page']) ? $_GET['page'] : 1;
+            $itemsPerPage = 5;
+            $skip = ($page-1) * $itemsPerPage;
+
+            if(isset($_SESSION['check']))
+                $result = get_marked_image_data($_SESSION['check'],$skip,$itemsPerPage,$maxPage);
+
+            $model['page'] = $page;
+            $model['images'] = $result ?? [];
+            $model['maxPage'] = $maxPage;
+
+        return "marked_gallery";
+    }
+}
+
+//image browser
+
 function search(&$model)
 {
     if(isset($_GET['phrase']))
@@ -51,34 +94,13 @@ function search(&$model)
     }
 }
 
-function marked_gallery(&$model)
-{
-    if($_SERVER['REQUEST_METHOD'] === 'POST')
-    {
-        markImages(false);
-        return 'redirect:' . $_SERVER['HTTP_REFERER'];
-    }
-    else
-    {
-        $page = isset($_GET['page']) ? $_GET['page'] : 1;
-        $itemsPerPage = 5;
-        $skip = ($page-1) * $itemsPerPage;
-
-        $result = get_marked_image_data($skip,$itemsPerPage,$maxPage);
-
-        $model['page'] = $page;
-        $model['images'] = $result ?? [];
-        $model['maxPage'] = $maxPage;
-
-        return "marked_gallery";
-    }
-}
+//auth
 
 function register_user(&$model)
 {
     if($_SERVER['REQUEST_METHOD'] === 'POST')
     {
-        $register_result = processRegisterForm();
+        $register_result = processRegisterForm($_POST['login'],$_POST['email'],$_POST['password'],$_POST['passwordRepeat']);
         $_SESSION['registerResult'] = $register_result;
         return 'redirect: '.$_SERVER['HTTP_REFERER'];
     }
@@ -95,7 +117,7 @@ function login_user(&$model)
     if($_SERVER['REQUEST_METHOD'] === 'POST')
     {
         $userId = NULL;
-        $loginResult = processLoginForm($userId);
+        $loginResult = processLoginForm($_POST['login'],$_POST['password'],$userId);
         $_SESSION['user'] = $userId;
         $_SESSION['loginResult'] = $loginResult;
 
@@ -114,6 +136,8 @@ function logout()
     $_SESSION['user'] = NULL;
     return "login";
 }
+
+//others
 
 function home(&$model)
 {

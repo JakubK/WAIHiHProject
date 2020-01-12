@@ -1,5 +1,6 @@
 <?php
 
+
 function generate_thumbnail($source,$mime_type, $upload_dir)
 {
     if($mime_type === 'image/png')
@@ -26,16 +27,18 @@ function generate_thumbnail($source,$mime_type, $upload_dir)
     imagedestroy($source_image);
 }
 
-function generate_watermark($source,$mime_type, $upload_dir)
+function generate_watermark($source,$mime_type, $upload_dir, $text)
 {
+  include 'paths.php';
+
   if($mime_type === 'image/png')
     $source_image = imagecreatefrompng($source);
   else
     $source_image = imagecreatefromjpeg($source);
 
-  $white = imagecolorallocatealpha($source_image,255,255,255,75);
-  $font = "../../arial.ttf";
-  imagettftext($source_image, 20, -45, 10, 20, $white, $font, $_POST['watermark']);
+  $white = imagecolorallocate($source_image,255,255,255);
+  $font = $paths['fonts'].'arial.ttf';
+  imagettftext($source_image, 20, -45, 10, 20, $white, $font, $text);
   imagesavealpha($source_image,true);
 
   if($mime_type === 'image/png')
