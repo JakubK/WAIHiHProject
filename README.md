@@ -1,4 +1,4 @@
-# WAIHiHProject
+# WebDevProject
 Gallery Web Application that I made for Web development classes I had as a CS Student at GUT.
 It has some limitations defined by the project requirements.
 ## Backend
